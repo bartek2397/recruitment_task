@@ -1,0 +1,40 @@
+#root {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.home {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.5rem;
+  list-style-type: none;
+  padding: 0;
+  margin: 0
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 150px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: fit-content;
+  padding: 30px;
+  border-radius: 10%;
+  background: #a1a1a1;
+  color: #efefef;
+}
+
