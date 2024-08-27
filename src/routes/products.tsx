@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import axios from "axios";
 
 type Product = {
     id: number;
@@ -9,35 +11,87 @@ type Product = {
     category: string;
     description: string;
     image: string;
+    rating: {
+        rate: number,
+        count: number
+    }
 }
 
 
 export default function Products() {
     const [products, setProducts] = useState<Product[]>([])
+    const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [sortKey, setSortKey] = useState('default');
+  const [sortOrder, setSortOrder] = useState('asc');
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch("https://fakestoreapi.com/products");
-                const data = await response.json();
-                setProducts(data);
-                console.log(products)
-                return products
-            } catch (error) {
-                console.error("Error fetching product data:", error)
-            }
+  useEffect(() => {
+    axios.get('https://fakestoreapi.com/products')
+      .then(response => {
+        setProducts(response.data);
+        setLoading(false);
+        console.log(response.data)
+      })
+      .catch(error => {
+        setError(error.message);
+        setLoading(false);
+      });
+  }, []);
+
+    const sortProducts = (key) => {
+        let sortedProducts;
+        if (key === sortKey) {
+          // If clicking the same key, toggle order
+          setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+          // If clicking a new key, set to ascending
+          setSortOrder('asc');
         }
-
-        fetchData()
-    }, [])
+        setSortKey(key);
+    
+        if (key === 'default') {
+          sortedProducts = [...products].sort((a, b) => a.id - b.id);
+        } else {
+          sortedProducts = [...products].sort((a, b) => {
+            if (key === 'title') {
+              return sortOrder === 'asc' 
+                ? a.title.localeCompare(b.title)
+                : b.title.localeCompare(a.title);
+            } else if (key === 'price') {
+              return sortOrder === 'asc' 
+                ? a.price - b.price
+                : b.price - a.price;
+            }
+          });
+        }
+        setProducts(sortedProducts);
+      };
+    
+      if (loading) return <div>Loading...</div>;
+      if (error) return <div>{error}</div>;
 
     return (
-            <div className="cardContainer">
+        <>
+        <Navbar />
+        <div className="sorting">
+        <p>Sort by:</p>
+        <button onClick={() => sortProducts('default')}>
+          Default {sortKey === 'default' && (sortOrder === 'asc' ? '▲' : '▼')}
+        </button>
+        <button onClick={() => sortProducts('title')}>
+          Sort by Title {sortKey === 'title' && (sortOrder === 'asc' ? '▲' : '▼')}
+        </button>
+        <button onClick={() => sortProducts('price')}>
+          Sort by Price {sortKey === 'price' && (sortOrder === 'asc' ? '▲' : '▼')}
+        </button>
+      </div>
+            <div className="cardsContainer">
                 {products.map((product) => (
                     <Link to={`/products/${product.id}`}>
-                        <ProductCard key={product.id} title={product.title} description={product.description} imageSrc={product.image} />
+                        <ProductCard key={product.id} title={product.title} price={product.price} imageSrc={product.image} />
                     </Link>
                 ))}
             </div>
+        </>
     )
 }

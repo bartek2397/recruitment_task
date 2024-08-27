@@ -18,11 +18,19 @@
   justify-content: space-around;
   font-size: 1.5rem;
   list-style-type: none;
-  padding: 0;
-  margin: 0
+  padding: 0 0 40px 0;
+  margin: 0 0 40px 0;
+  position: absolute;
+  top: 5%;
+  right: 50%;
+  transform: translateX(50%)
 }
 
-.cardContainer {
+.sorting {
+  padding: 40px 0;
+}
+
+.cardsContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 150px;
@@ -31,10 +39,68 @@
   display: flex;
   flex-direction: column;
   width: 350px;
-  height: fit-content;
   padding: 30px;
   border-radius: 10%;
   background: #a1a1a1;
   color: #efefef;
+
+  .cardImg {
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+  }
+}
+
+.backLink {
+  text-align: left;
+  margin-bottom: 100px;
+}
+.product-page-box {
+  background-color: #fff;
+  color: #000;
+  
+
+  .product-page {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+
+    img {
+      border-radius: 30px;
+    }
+
+    .product-desc {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding:  20px 10px ;
+
+      header {
+       display: flex;
+       flex-direction: column;
+       align-items: start;
+  
+       h1 {
+         font-size: 28px;
+         text-align: left;
+         margin-bottom: 0;
+       }
+  
+       p {
+         margin: 0;
+         padding: 0;
+       }
+
+      
+    }
+    p {
+      margin: 0;
+      padding: 0;
+    }
+
+    }
+  }
 }
 
