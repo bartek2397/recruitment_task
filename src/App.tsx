@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import './App.css'
-import Navbar from './components/Navbar'
 
 function App() {
 
@@ -8,14 +7,15 @@ function App() {
 
   return (
     <div className='home'>
-      <Navbar />
-      {lastViewedProductId && (
-        <Link to={`/products/${lastViewedProductId}`}>View Last Browsed Product</Link>
-      )}
-      <p>Hello There! Wanna browse our products?</p>
+        
+        <p>Hello There! Wanna browse our products?</p>
+        {lastViewedProductId && (
+          <Link to={`/products/${lastViewedProductId}`}>Click here to check your last viewed product</Link>
+        )}
       
-    </div>
+      </div>
   )
+  
 }
 
 export default App

@@ -3,6 +3,7 @@ import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 
 type Product = {
     id: number;
@@ -38,7 +39,7 @@ export default function Products() {
       });
   }, []);
 
-    const sortProducts = (key) => {
+    const sortProducts = (key: string) => {
         let sortedProducts;
         if (key === sortKey) {
           // If clicking the same key, toggle order
@@ -67,12 +68,11 @@ export default function Products() {
         setProducts(sortedProducts);
       };
     
-      if (loading) return <div>Loading...</div>;
+      if (loading) return <div><ClipLoader color="#ad86f1"/></div>;
       if (error) return <div>{error}</div>;
 
     return (
         <>
-        <Navbar />
         <div className="sorting">
         <p>Sort by:</p>
         <button onClick={() => sortProducts('default')}>

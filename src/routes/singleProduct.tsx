@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import ClipLoader from "react-spinners/ClipLoader";
 
 type Product = {
     id: number;
@@ -35,15 +35,14 @@ export default function Productpage() {
       });
   }, [productId]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div><ClipLoader color="#ad86f1"/></div>;
   if (error) return <div>{error}</div>;
   if (!product) return <div>Product not found</div>;
 
   return (
       <>
-      <Navbar />
       <p className="backLink">
-        <Link to='/products'>Back to product list</Link>
+        <Link to='/products'>{'<< '}Back to product list</Link>
       </p>
     <div className="product-page-box">
       <div className="product-page">
