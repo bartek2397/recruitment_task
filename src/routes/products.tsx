@@ -1,22 +1,9 @@
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
-
-type Product = {
-    id: number;
-    title: string;
-    price: number;
-    category: string;
-    description: string;
-    image: string;
-    rating: {
-        rate: number,
-        count: number
-    }
-}
+import type { Product } from "../utils/types";
 
 
 export default function Products() {
@@ -42,10 +29,8 @@ export default function Products() {
     const sortProducts = (key: string) => {
         let sortedProducts;
         if (key === sortKey) {
-          // If clicking the same key, toggle order
           setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
         } else {
-          // If clicking a new key, set to ascending
           setSortOrder('asc');
         }
         setSortKey(key);

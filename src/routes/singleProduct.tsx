@@ -2,19 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
+import type { Product } from "../utils/types";
 
-type Product = {
-    id: number;
-    title: string;
-    price: number;
-    category: string;
-    description: string;
-    image: string;
-    rating: {
-      rate: number,
-      count: number
-  }
-}
 
 export default function Productpage() {
     const [product, setProduct] = useState<Product>();
